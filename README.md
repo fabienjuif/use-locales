@@ -1,6 +1,3 @@
-⚠️Don't use it now since I have this:
-> Hooks can only be called inside the body of a function component
-
 # use-locales
 > React hooks to bring locales in your browser
 

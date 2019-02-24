@@ -1,6 +1,6 @@
 {
   "name": "use-locales",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "src/index.js",
   "license": "MIT",
   "author": "Fabien JUIF <fabien.juif@gmail.com>",
@@ -22,8 +22,7 @@
     "build": "pika-pack build",
     "pika-publish": "pika-pack publish"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.3.3",
     "@babel/preset-react": "^7.0.0",
