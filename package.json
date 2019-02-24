@@ -20,7 +20,7 @@
   "scripts": {
     "ci": "eslint . --cache --ext js,jsx --ignore-pattern node_modules --ignore-pattern pkg",
     "build": "pika-pack build",
-    "publish": "pika-pack publish"
+    "pika-publish": "pika-pack publish"
   },
   "dependencies": {
     "react": "^16.8.3",
