@@ -1,0 +1,83 @@
+{
+  "name": "use-locales",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "author": "Fabien JUIF <fabien.juif@gmail.com>",
+  "repository": "github:fabienjuif/use-locales",
+  "keywords": [
+    "react",
+    "hook",
+    "i18n",
+    "l10n",
+    "use",
+    "use-locales",
+    "locales",
+    "internationalisation",
+    "localisation",
+    "nantes"
+  ],
+  "scripts": {
+    "ci": "eslint . --cache --ext js,jsx --ignore-pattern node_modules --ignore-pattern pkg",
+    "build": "pika-pack build",
+    "publish": "pika-pack publish"
+  },
+  "dependencies": {
+    "react": "^16.8.3",
+    "react-use": "^5.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-react": "^7.0.0",
+    "@pika/pack": "^0.3.3",
+    "@pika/plugin-build-node": "^0.3.12",
+    "@pika/plugin-build-types": "^0.3.12",
+    "@pika/plugin-build-web": "^0.3.12",
+    "@pika/plugin-standard-pkg": "^0.3.12",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-use": "^5.5.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ],
+      "max-len": [
+        "error",
+        200
+      ],
+      "import/prefer-default-export": "off"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-standard-pkg"
+      ]
+    ]
+  }
+}
