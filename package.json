@@ -20,7 +20,9 @@
   "scripts": {
     "ci": "eslint . --cache --ext js,jsx --ignore-pattern node_modules --ignore-pattern pkg",
     "build": "pika build",
-    "pika-publish": "pika publish"
+    "pika-publish": "pika publish",
+    "version": "npm run build",
+    "test": "echo 'oups'"
   },
   "dependencies": {},
   "devDependencies": {
