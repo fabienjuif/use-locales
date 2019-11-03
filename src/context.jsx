@@ -10,7 +10,7 @@ const getFromPath = (data, path) => path.split('.').reduce(
 
 const Context = createContext()
 
-const LocalesProvider = ({ children }) => {
+const LocalesProvider = ({ children, loadingElm }) => {
   const [lang, setLang] = useLocalStorage('lang', undefined)
   const [locales, setLocales] = useLocalStorage('locales', undefined)
 
@@ -38,10 +38,10 @@ const LocalesProvider = ({ children }) => {
       || locales.lang !== currentLang
       || (Date.now() - locales.date) > 259200000 /* 3 days */
     ) {
-      const loadLocales = fetchLang => (
+      const loadLocales = (fetchLang) => (
         fetch(`${process.env.PUBLIC_URL}/locales/${fetchLang}.json`)
-          .then(raw => raw.json())
-          .then(newLocales => setLocales({ data: newLocales, lang: fetchLang, date: Date.now() }))
+          .then((raw) => raw.json())
+          .then((newLocales) => setLocales({ data: newLocales, lang: fetchLang, date: Date.now() }))
       )
 
       loadLocales(currentLang)
@@ -54,7 +54,7 @@ const LocalesProvider = ({ children }) => {
     return getFromPath(locales.data, path)
   }
 
-  if (!locales) return <div>Loading locales...</div>
+  if (!locales) return loadingElm
 
   return (
     <Context.Provider
@@ -71,6 +71,11 @@ const LocalesProvider = ({ children }) => {
 
 LocalesProvider.propTypes = {
   children: PropTypes.node.isRequired,
+  loadingElm: PropTypes.node,
+}
+
+LocalesProvider.defaultProps = {
+  loadingElm: null,
 }
 
 export { Context as LocalesContext }
