@@ -61,6 +61,12 @@ Exemple of files:
 }
 ```
 
+## API
+- `<LocalesProvider>`: provider, your nodes must be wrapped by this to use hooks, we recommand to set it at your application root element.
+- `useLang(): string`: returns the detect language use by the browser
+- `useLocales(path: string?): object`: given the path, returns locales from `<public-path>/locales/<lang>.json`
+  * if `path` is not set it will returns all the locales
+
 ## Feel free to open PR/Issues !
 Feel free to discuss or open PR to have a better package all together!
 Right know I use this package into:
