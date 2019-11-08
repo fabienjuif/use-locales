@@ -20,7 +20,7 @@ import { LocalesProvider } from 'use-locales'
 import App from './app'
 
 ReactDOM.render(
-  <LocalesProvider>
+  <LocalesProvider hashKey={process.env.REACT_APP_GIT_SHA || Date.now()}>
     <App />
   </LocalesProvider>
   document.getElementById('root'),
@@ -62,7 +62,8 @@ Exemple of files:
 ```
 
 ## API
-- `<LocalesProvider>`: provider, your nodes must be wrapped by this to use hooks, we recommand to set it at your application root element.
+- `<LocalesProvider hashKey>`: provider, your nodes must be wrapped by this to use hooks, we recommand to set it at your application root element.
+  * `hashKey`: is used to detect if locales have to be fetched before the timeout. A good practice is to use the git commit hash!
 - `useLang(): string`: returns the detect language use by the browser
 - `useLocales(path: string?): object`: given the path, returns locales from `<public-path>/locales/<lang>.json`
   * if `path` is not set it will returns all the locales

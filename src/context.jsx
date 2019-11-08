@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import React, { createContext, useEffect } from 'react'
+import React, { createContext, useEffect, useCallback } from 'react'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import PropTypes from 'prop-types'
 
@@ -10,7 +10,7 @@ const getFromPath = (data, path) => path.split('.').reduce(
 
 const Context = createContext()
 
-const LocalesProvider = ({ children, loadingElm }) => {
+const LocalesProvider = ({ children, loadingElm, hashKey }) => {
   const [lang, setLang] = useLocalStorage('lang', undefined)
   const [locales, setLocales] = useLocalStorage('locales', undefined)
 
@@ -36,23 +36,32 @@ const LocalesProvider = ({ children, loadingElm }) => {
       || !locales.date
       || !locales.lang
       || locales.lang !== currentLang
+      || (hashKey && hashKey !== locales.hashKey)
       || (Date.now() - locales.date) > 259200000 /* 3 days */
     ) {
       const loadLocales = (fetchLang) => (
-        fetch(`${process.env.PUBLIC_URL}/locales/${fetchLang}.json`)
+        fetch(`${process.env.PUBLIC_URL}/locales/${fetchLang}.json${hashKey ? `?hashKey=${hashKey}` : ''}`)
           .then((raw) => raw.json())
-          .then((newLocales) => setLocales({ data: newLocales, lang: fetchLang, date: Date.now() }))
+          .then((newLocales) => setLocales({
+            data: newLocales,
+            lang: fetchLang,
+            date: Date.now(),
+            hashKey,
+          }))
       )
 
       loadLocales(currentLang)
-        .catch(() => loadLocales('en'))
+        .catch(() => {
+          setLang('en')
+          loadLocales('en')
+        })
     }
-  })
+  }, [hashKey])
 
-  const getMessages = (path = '') => {
+  const getMessages = useCallback((path = '') => {
     if (path === '') return locales.data
     return getFromPath(locales.data, path)
-  }
+  }, [locales])
 
   if (!locales) return loadingElm
 
@@ -72,10 +81,12 @@ const LocalesProvider = ({ children, loadingElm }) => {
 LocalesProvider.propTypes = {
   children: PropTypes.node.isRequired,
   loadingElm: PropTypes.node,
+  hashKey: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
 }
 
 LocalesProvider.defaultProps = {
   loadingElm: null,
+  hashKey: null,
 }
 
 export { Context as LocalesContext }
