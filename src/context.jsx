@@ -10,6 +10,15 @@ const getFromPath = (data, path) => path.split('.').reduce(
 
 const Context = createContext()
 
+const messageProxy = {
+  set() {
+    throw new Error('[use-locales] messages is unvariant.')
+  },
+  get(obj, prop) {
+    return obj[prop] || prop
+  },
+}
+
 const LocalesProvider = ({ children, loadingElm, hashKey }) => {
   const [lang, setLang] = useLocalStorage('lang', undefined)
   const [locales, setLocales] = useLocalStorage('locales', undefined)
@@ -59,8 +68,10 @@ const LocalesProvider = ({ children, loadingElm, hashKey }) => {
   }, [hashKey])
 
   const getMessages = useCallback((path = '') => {
-    if (path === '') return locales.data
-    return getFromPath(locales.data, path)
+    let { data: messages } = locales
+    if (path !== '') messages = getFromPath(locales.data, path)
+    if (typeof Proxy !== 'undefined') return new Proxy(messages, messageProxy)
+    return messages
   }, [locales])
 
   if (!locales) return loadingElm
