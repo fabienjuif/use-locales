@@ -24,7 +24,7 @@
     "build": "pika build",
     "pika-publish": "pika publish",
     "version": "npm run build",
-    "test": "jest ./src"
+    "test": "LANG=en-US jest ./src"
   },
   "dependencies": {},
   "devDependencies": {
