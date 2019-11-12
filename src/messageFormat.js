@@ -15,6 +15,7 @@ function cleanPiece(piece) {
 export default function format(message, data, lang = 'en') {
   if (!message || message.trim().length === 0) return message
   const pieces = message.match(REGEXP_MESSAGE)
+  if (!pieces) return message
 
   return pieces.reduce(
     (newMessage, piece) => {
