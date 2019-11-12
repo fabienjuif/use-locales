@@ -36,7 +36,6 @@ const LocalesProvider = ({ children, loadingElm, hashKey }) => {
         if (currentLang.length < 2) currentLang = 'en'
       }
       setLang(currentLang)
-      return
     }
 
     // load locales
