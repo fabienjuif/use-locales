@@ -1,4 +1,9 @@
-import { useContext, useState, useLayoutEffect, useRef } from 'react'
+import {
+  useContext,
+  useState,
+  useLayoutEffect,
+  useRef,
+} from 'react'
 import { LocalesContext } from './context'
 import format from './messageFormat'
 
