@@ -30,7 +30,7 @@ it('should replace unknown fields with an empty string', () => {
 })
 
 it('should replace date', () => {
-  expect(format('Mon nom est {name} et je suis né le {birthday, date}', data, 'fr'))
+  expect(format('Mon nom est {name} et je suis né le {birthday, date}', data, 'en-US'))
     .toEqual('Mon nom est Fabien et je suis né le 4/25/1988')
 })
 
