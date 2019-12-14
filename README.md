@@ -1,6 +1,9 @@
 # use-locales
 > React hooks to bring locales in your browser
 
+![npm](https://img.shields.io/npm/v/use-locales.svg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/use-locales.svg) ![CircleCI](https://img.shields.io/circleci/build/github/fabienjuif/use-locales.svg)
+
+
 ## How it works?
 - Detects your browser lang
 - Try to find locales in locales storages
