@@ -28,7 +28,7 @@ export default function format(message, data, lang = 'en') {
       // the second argument is type of options, in previous example this is 'date'
       const pieceOptions = piece.split(',')
       const key = cleanPiece(pieceOptions[0])
-      if (!data[key]) return newMessage.replace(piece, '')
+      if (data[key] === null || data[key] === undefined) return newMessage.replace(piece, '')
       const type = cleanPiece(pieceOptions[1])
 
       switch (type) {

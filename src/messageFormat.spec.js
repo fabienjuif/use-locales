@@ -7,6 +7,7 @@ const data = {
   siblings: 2,
   birthday: '1988-04-25T00:00:00.000Z',
   lotery: 23292.23,
+  loteryZero: 0,
 }
 
 it('should return the message if there is no statement', () => {
@@ -39,6 +40,10 @@ it('should replace currency', () => {
     .toEqual('Mon nom est Fabien et j\'ai gagné €23,292.23')
 })
 
+it('should replace currency (test with 0)', () => {
+  expect(format("Mon nom est {name} et j'ai gagné {loteryZero, currency, EUR}", data))
+    .toEqual('Mon nom est Fabien et j\'ai gagné €0.00')
+})
 
 it('should replace number', () => {
   expect(format("Mon nom est {name} et j'ai gagné {lotery, number}", data))
