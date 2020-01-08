@@ -24,9 +24,13 @@ export const useLocales = (path, object) => {
     }
 
     setMessages(Object.entries(rawMessage).reduce(
-      (acc, [key, value]) => ({
-        ...acc, [key]: format(value, object, lang),
-      }),
+      (acc, [key, value]) => {
+        if (typeof value !== 'string') return acc
+        return {
+          ...acc,
+          [key]: format(value, object, lang),
+        }
+      },
       {},
     ))
   }, [object])
