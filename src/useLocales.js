@@ -33,7 +33,7 @@ export const useLocales = (path, object) => {
       },
       {},
     ))
-  }, [object])
+  }, [path, object])
 
   return messages
 }
