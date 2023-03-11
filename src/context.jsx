@@ -1,5 +1,10 @@
 /* eslint-env browser */
-import React, { createContext, useEffect, useCallback } from 'react'
+import React, {
+  createContext,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import PropTypes from 'prop-types'
 
@@ -19,7 +24,7 @@ const messageProxy = {
   },
 }
 
-const LocalesProvider = ({ children, loadingElm, hashKey }) => {
+function LocalesProvider({ children, loadingElm, hashKey }) {
   const [lang, setLang] = useLocalStorage('lang', undefined)
   const [locales, setLocales] = useLocalStorage('locales', undefined)
 
@@ -73,19 +78,15 @@ const LocalesProvider = ({ children, loadingElm, hashKey }) => {
     return messages
   }, [locales])
 
+  const value = useMemo(() => ({
+    lang,
+    locales,
+    getMessages,
+  }), [lang, locales, getMessages])
+
   if (!locales) return loadingElm
 
-  return (
-    <Context.Provider
-      value={{
-        lang,
-        locales,
-        getMessages,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  )
+  return <Context.Provider value={value}>{children}</Context.Provider>
 }
 
 LocalesProvider.propTypes = {
