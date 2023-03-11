@@ -16,7 +16,7 @@
 
 ## How to use it?
 
-1. Install the package: `yarn add use-locales`
+1. Install the package: `yarn add use-locales react-use`
 2. Add a locales provider to your application:
 
 ```jsx
