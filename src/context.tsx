@@ -37,12 +37,14 @@ export interface LocalesProviderProps {
   children: any;
   loadingElm?: any;
   hashKey?: string | number;
+  baseUrl?: string;
 }
 
 export function LocalesProvider({
   children,
   loadingElm,
   hashKey,
+  baseUrl = "/",
 }: LocalesProviderProps) {
   const [lang, setLang] = useLocalStorage<string>("lang", "en");
   const [locales, setLocales] = useLocalStorage<Locales>("locales", undefined);
@@ -79,7 +81,7 @@ export function LocalesProvider({
     ) {
       const loadLocales = (fetchLang = "en") =>
         fetch(
-          `${process.env.PUBLIC_URL}/locales/${fetchLang}.json${
+          `${baseUrl}locales/${fetchLang}.json${
             hashKey ? `?hashKey=${hashKey}` : ""
           }`
         )
