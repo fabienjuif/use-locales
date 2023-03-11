@@ -2,7 +2,10 @@ import { useContext, useState, useLayoutEffect, useRef } from "react";
 import { LocalesContext } from "./context";
 import format from "./messageFormat";
 
-export const useLocales = (path?: string, object?: Record<string, unknown>) => {
+export function useLocales<T>(
+  path?: string,
+  object?: Record<string, unknown>
+): T {
   const firstDraw = useRef(true);
   const { getMessages, lang } = useContext(LocalesContext);
   const [messages, setMessages] = useState(getMessages(path));
@@ -29,5 +32,5 @@ export const useLocales = (path?: string, object?: Record<string, unknown>) => {
     );
   }, [path, object]);
 
-  return messages;
-};
+  return messages as T;
+}
